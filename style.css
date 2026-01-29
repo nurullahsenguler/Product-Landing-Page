@@ -1,0 +1,1522 @@
+/* --- GLOBAL TEMEL (Güncellenmiş Versiyon) --- */
+:root {
+  --bg: #0e0e0e;
+  --text: #ffffff;
+  --muted: #bdbdbd;
+  --accent: #7cffc4; /* Senin o meşhur buton rengin */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Tüm başlıklardaki vurgulu kelimeler (Perfect Sound vb.) */
+h1 span,
+h2 span,
+h3 span {
+  color: var(--accent);
+  text-shadow: 0 0 15px rgba(124, 255, 196, 0.3); /* Hafif neon parlaması */
+}
+
+.section-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(124, 255, 196, 0.15);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-head h2 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.section-head p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.section-head.center {
+  text-align: center;
+  margin: 0 auto 80px;
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  background: rgba(14, 14, 14, 0.6);
+  backdrop-filter: blur(12px);
+  transition: background 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(14, 14, 14, 0.85);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-menu a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: var(--text);
+}
+
+/* BUTTONS */
+.btn {
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(124, 255, 196, 0.35);
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  color: var(--text);
+}
+
+.secondary-btn:hover {
+  border-color: var(--accent);
+}
+/* --- RESPONSİVE NAVBAR --- */
+
+/* Hamburger Başlangıçta Gizli */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 998;
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .nav-container {
+    padding: 15px 20px;
+    width: 100%;
+  }
+
+  .hamburger {
+    display: flex; /* Mobilde hamburgeri açtık */
+    order: 1; /* Sıralama: Hamburger solda */
+  }
+
+  .nav-logo {
+    order: 2; /* Logo ortada */
+  }
+
+  .nav-container .primary-btn {
+    order: 3; /* Buton sağda */
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+
+    /* Saydamlaştırma, Blur ve Ortalama */
+    background: rgba(14, 14, 14, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikeyde ortalar */
+    align-items: center; /* Yatayda ortalar */
+    gap: 35px; /* Linkler arası boşluk */
+
+    padding: 0;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1050;
+    border-right: 1px solid rgba(124, 255, 196, 0.1);
+  }
+
+  .nav-menu.active {
+    left: 0; /* Menü açıldığında içeri gelsin */
+  }
+
+  .nav-menu a {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Hamburger Animasyonu */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+/* HERO */
+.hero {
+  padding: 140px 0 100px;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.hero-content {
+  max-width: 520px;
+}
+
+.hero-badge {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(124, 255, 196, 0.15);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hero-content h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-content h1 span {
+  color: var(--accent);
+}
+
+.hero-content p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat strong {
+  font-size: 22px;
+}
+
+.stat span {
+  font-size: 13px;
+  color: #9a9a9a;
+}
+
+/* HERO IMAGE */
+.hero-image {
+  position: relative;
+  width: 460px;
+}
+
+.image-bg {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle,
+    rgba(124, 255, 196, 0.45),
+    rgba(124, 255, 196, 0.15),
+    transparent 70%
+  );
+  filter: blur(50px);
+  z-index: 1;
+}
+
+.hero-image img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-radius: 22px 22px 64px 22px;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+}
+
+/* --- HERO SECTION RESPONSIVE (GÜNCEL) --- */
+@media (max-width: 992px) {
+  .hero-container {
+    display: flex;
+    flex-direction: column-reverse; /* Görsel üstte, metin altta */
+    text-align: center;
+    padding-top: 10px; /* Mesafeyi kısalttık (Navbar'a yaklaştı) */
+    padding-bottom: 40px;
+    gap: 30px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* İçeriği yatayda tam ortalar */
+    justify-content: center;
+    max-width: 100%;
+    margin: 0 auto; /* Dış boşlukları sıfırlayıp ortaladık */
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  .hero-content p {
+    font-size: 15px;
+    margin-bottom: 30px;
+    max-width: 85%;
+  }
+
+  /* --- BUTONLAR TAM MERKEZDE --- */
+  .hero-btns {
+    display: flex;
+    flex-direction: row; /* Yan yana tut */
+    justify-content: center; /* Yatayda tam merkeze al */
+    align-items: center; /* Dikeyde hizala */
+    gap: 12px;
+    width: 100%;
+    margin: 0 auto; /* Varsa sol margin'i kırar */
+  }
+
+  .hero-btns .btn {
+    margin: 0; /* Butonların kendi marginlerini sıfırla */
+    padding: 12px 18px;
+    font-size: 14px;
+    min-width: 140px; /* Butonların çok küçülmesini engeller */
+  }
+
+  .hero-image {
+    max-width: 280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* FEATURES */
+
+.features {
+  padding: 120px 0;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* SECTION HEAD (Aynı bıraktım) */
+.section-head {
+  max-width: 620px;
+  margin-bottom: 80px;
+}
+
+/* GRID (4'lü yapıya geri döndük) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* CARD */
+.feature-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid #1f1f1f;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* IMAGE AREA (Artık İkon Alanı) */
+.feature-image {
+  width: 100%;
+  height: 200px; /* İstediğin yükseklik korundu */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02); /* Çok hafif bir derinlik */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-image i {
+  font-size: 56px; /* İkon boyutu */
+  color: var(--accent); /* Neon yeşil */
+  filter: drop-shadow(0 0 15px rgba(124, 255, 196, 0.3)); /* Parlama efekti */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* CONTENT */
+.feature-content {
+  padding: 28px;
+}
+
+.feature-content h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.feature-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* HOVER */
+.feature-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.18);
+}
+
+/* Hover'da ikon zıplasın */
+.feature-card:hover .feature-image i {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* --- FEATURES SECTION RESPONSIVE --- */
+/* --- TABLET AYARLARI (Max 992px) --- */
+@media (max-width: 992px) {
+  /* HERO TABLET DÜZENLEME */
+  .hero-container {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding-top: 60px; /* Tablette biraz daha yukarı çekebiliriz */
+    gap: 40px;
+  }
+
+  .hero-btns {
+    justify-content: center; /* Butonları tam ortala */
+  }
+
+  /* FEATURES TABLET (2x2 Yapısı) */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 sütun yaptık */
+    gap: 24px;
+    padding: 0;
+  }
+
+  .section-head {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Başlık metnini ortala */
+  }
+
+  .feature-content {
+    text-align: center; /* Yazıları ortala */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* --- TELEFON AYARLARI (Max 576px) --- */
+@media (max-width: 576px) {
+  /* HERO TELEFON */
+  .hero-content h1 {
+    font-size: 32px; /* Küçük ekranlarda başlık biraz daha küçülsün */
+  }
+
+  /* FEATURES TELEFON (Tek Sütun) */
+  .features-grid {
+    grid-template-columns: 1fr; /* Tekli yapıya dön */
+    gap: 20px;
+  }
+
+  .feature-image {
+    height: 160px; /* Telefonda ikon alanı biraz daralsın yer kazanalım */
+  }
+
+  .feature-content p {
+    max-width: 100%; /* Telefonda tüm genişliği kullanabilir */
+  }
+}
+
+/* DESIGN */
+.design {
+  padding: 140px 0;
+}
+
+.design-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* IMAGE */
+.design-image {
+  position: relative;
+}
+
+.design-image img {
+  width: 100%;
+  border-radius: 24px;
+  display: block;
+  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.6));
+}
+
+/* CONTENT */
+.design-content h2 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.design-content h2 span {
+  color: var(--accent);
+}
+
+.design-content p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* LIST */
+.design-list {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.design-list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15px;
+}
+
+.design-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* --- DESIGN SECTION RESPONSIVE --- */
+
+/* --- DESIGN SECTION RESPONSIVE (Özel Sıralama) --- */
+@media (max-width: 992px) {
+  .design-container {
+    display: flex;
+    flex-direction: column; /* Normal akışa döndük */
+    text-align: center;
+    gap: 30px;
+  }
+
+  /* 1. Sırada Badge kalsın diye içeriği flex yapıyoruz */
+  .design-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 2; /* İçerik bloğunu genel sıralamada sona atıyoruz ama... */
+  }
+
+  /* İçerik bloğu kendi içinde sıralanıyor */
+  .section-badge {
+    order: 1; /* Badge en üstte */
+    margin-bottom: 20px;
+  }
+
+  .design-image {
+    order: 1; /* Container içinde görseli yukarı taşıyoruz */
+    margin: 0 auto;
+    max-width: 90%;
+  }
+
+  .design-content h2 {
+    order: 2; /* Görselden sonra başlık gelsin */
+    font-size: 32px;
+  }
+
+  .design-content p {
+    order: 3; /* Sonra paragraf */
+  }
+
+  .design-list {
+    order: 4; /* En son liste */
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+  }
+}
+
+/* PRODUCTS SECTION */
+.products {
+  padding: 140px 0;
+}
+
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* CENTER HEAD */
+.products .section-head.center {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+/* GRID / ROWS */
+.products-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* reverse class artık kullanılmıyor */
+/* product-row sadece flex-row ile çalışıyor */
+
+/* IMAGE */
+.product-image {
+  flex: 1;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.4s ease;
+}
+
+.product-row:hover .product-image img {
+  transform: scale(1.03);
+}
+
+/* CONTENT */
+.product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-content h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.product-content p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.product-content .btn {
+  align-self: start;
+}
+
+/* --- PRODUCTS SECTION RESPONSIVE --- */
+
+@media (max-width: 992px) {
+  .product-row {
+    display: flex;
+    flex-direction: column; /* Genel olarak alt alta diz */
+    text-align: center;
+    gap: 30px;
+  }
+
+  /* 1. ÜRÜN (Mavi): Resim alttaydı, onu üste çekiyoruz */
+  .product-row:first-child {
+    flex-direction: column-reverse;
+  }
+
+  /* 2. ÜRÜN (Pembe): Resim zaten üstte, dokunmuyoruz (column kalsın) */
+  .product-row:last-child {
+    flex-direction: column;
+  }
+
+  /* İçeriklerin Ortalanması (Yazı ve Buton) */
+  .product-content {
+    align-items: center; /* Butonu merkeze çeker */
+  }
+
+  .product-content .btn {
+    align-self: center; /* Sola yatıklığı iptal ettik */
+    margin: 0 auto;
+    width: fit-content;
+  }
+
+  .product-image {
+    width: 100%;
+    max-width: 380px; /* Mobilde çok kaba durmasın */
+    margin: 0 auto;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* REVIEWS */
+
+.reviews {
+  padding: 140px 0;
+}
+
+.reviews-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-head.center {
+  text-align: center;
+  margin: 0 auto 80px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #1f1f1f;
+  padding: 36px 32px;
+  border-radius: 20px;
+  /* Animasyonlar için transizyon */
+  transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.review-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.1);
+  background: rgba(124, 255, 196, 0.02); /* Çok hafif bir renk tonu */
+}
+
+.review-stars {
+  color: #ffd166;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.review-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.review-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.review-user img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(124, 255, 196, 0.2); /* Görselin etrafına ince bir halka */
+  background: #1a1a1a; /* Resim gelene kadar boşluk siyah dursun */
+}
+
+.review-user strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.review-user span {
+  font-size: 12px;
+  color: #9a9a9a;
+}
+
+/* HOVER */
+.review-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.15);
+}
+
+/* --- REVIEWS SECTION RESPONSIVE --- */
+@media (max-width: 992px) {
+  .reviews {
+    padding: 80px 0;
+  }
+
+  .reviews-container {
+    padding: 0 24px;
+  }
+
+  .reviews-grid {
+    /* Tablette 2'li yapıya geçiyoruz */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .section-head.center {
+    margin-bottom: 50px;
+  }
+
+  .section-head.center h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    /* Küçük tablet ve telefonda tek sütun */
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .review-card {
+    padding: 28px 24px; /* Mobilde iç boşluğu biraz daralttık */
+    text-align: center; /* Kart içeriğini ortala */
+  }
+
+  .review-user {
+    justify-content: center; /* Kullanıcı bilgilerini ortala */
+    text-align: left; /* Yazılar yine sola yaslı kalsın ama blok ortada olsun */
+  }
+
+  /* Öne çıkan kart mobilde çok parlıyorsa gölgesini biraz hafifletiyoruz */
+  .review-card.featured {
+    box-shadow: 0 10px 30px rgba(124, 255, 196, 0.08);
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-container {
+    padding: 0 20px;
+  }
+
+  .review-text {
+    font-size: 14px;
+  }
+}
+
+/* PRICING SECTION */
+.pricing {
+  padding: 140px 0;
+  background: #0a0a0a;
+}
+
+.pricing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* GRID */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+
+/* CARD */
+.pricing-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1f1f1f;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+
+  /* 🎯 Flex ile içerik hizalama */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.pricing-card h3 {
+  font-size: 20px;
+  margin: 12px 0;
+}
+
+.pricing-card .price {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.pricing-card p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.pricing-card .btn {
+  padding: 12px 28px;
+  align-self: center; /* Butonu ortala */
+}
+
+/* IMAGE */
+.pricing-image {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.pricing-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.4s ease;
+}
+
+.pricing-card:hover .pricing-image img {
+  transform: scale(1.03);
+}
+
+/* Featured Plan */
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.25);
+  transform: translateY(-5px);
+}
+
+/* Hover */
+.pricing-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.25);
+}
+
+/* --- PRICING SECTION RESPONSIVE --- */
+@media (max-width: 992px) {
+  .pricing {
+    padding: 80px 0;
+  }
+
+  .pricing-container {
+    padding: 0 24px;
+  }
+
+  .pricing-grid {
+    /* Tablette 2'li yapıya geçiyoruz, Featured planı tam genişlik yapabiliriz */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  /* Ortadaki Featured planın tabletlerde daha baskın durması için (Opsiyonel) */
+  .pricing-card.featured {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-grid {
+    /* Teleponda tek sütun */
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .pricing-card {
+    padding: 24px 20px;
+    max-width: 400px;
+    margin: 0 auto; /* Kartları ortala */
+    width: 100%;
+  }
+
+  .pricing-image {
+    max-width: 200px; /* Mobilde resim çok devasa olmasın, fiyata odaklanalım */
+    margin: 0 auto 15px;
+  }
+
+  .pricing-card .price {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .pricing-card h3 {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+
+  /* Featured kartın mobildeki özel duruşu */
+  .pricing-card.featured {
+    transform: scale(1.02); /* Mobilde hafifçe daha büyük dursun */
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-head.center h2 {
+    font-size: 28px;
+  }
+
+  .pricing-card .btn {
+    width: 100%; /* Teleponda butonu tam genişlik yaparak tıklamayı kolaylaştır */
+  }
+}
+
+/* FAQ SECTION */
+.faq {
+  padding: 140px 0;
+  background: #0e0e0e;
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* FAQ GRID */
+.faq-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+/* FAQ ITEM */
+.faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1f1f1f;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(124, 255, 196, 0.18);
+}
+
+/* QUESTION */
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+}
+
+/* ANSWER */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.faq-answer p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 16px 0;
+}
+
+/* ACTIVE FAQ */
+.faq-item.active .faq-answer {
+  max-height: 200px; /* yeterli alan */
+  padding: 16px 24px;
+}
+
+/* --- FAQ SECTION RESPONSIVE --- */
+@media (max-width: 992px) {
+  .faq {
+    padding: 80px 0;
+  }
+
+  .faq-container {
+    padding: 0 24px; /* Kenar boşluklarını daralttık */
+  }
+
+  .section-head.center h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .faq-grid {
+    margin-top: 40px;
+    gap: 30px; /* Kartlar arası boşluğu biraz azalttık */
+  }
+
+  .faq-question {
+    padding: 18px 20px; /* Mobilde biraz daha kompakt */
+    font-size: 15px; /* Sığması için fontu hafif küçülttük */
+    line-height: 1.4;
+  }
+
+  .faq-answer p {
+    font-size: 13px;
+    margin: 10px 0;
+  }
+
+  /* Aktif olduğunda padding ayarı */
+  .faq-item.active .faq-answer {
+    padding: 10px 20px 20px;
+  }
+}
+
+/* FOOTER */
+.footer {
+  background: #0a0a0a;
+  color: var(--muted);
+  padding: 80px 40px 40px;
+  font-size: 14px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* TOP SECTION */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-brand h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.footer-brand h2 span {
+  color: var(--accent);
+}
+
+.footer-brand p {
+  margin-top: 12px;
+  max-width: 320px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* Link grubu */
+.link-group h4 {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.link-group a {
+  display: block; /* alt alta */
+  margin-bottom: 10px;
+  color: var(--muted);
+  text-decoration: none; /* çizgi yok */
+  cursor: pointer; /* mouse pointer */
+  transition: color 0.3s ease;
+}
+
+.link-group a:hover {
+  color: var(--accent); /* primary accent hover */
+}
+
+/* SOCIALS */
+.footer-socials {
+  display: flex;
+  flex-direction: column; /* alt alta */
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer-socials a {
+  color: var(--muted);
+  font-size: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-socials a:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* BOTTOM */
+.footer-bottom {
+  border-top: 1px solid #1f1f1f;
+  padding-top: 24px;
+  text-align: center;
+  color: #7a7a7a;
+}
+
+/* --- FOOTER RESPONSIVE --- */
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 20px 30px; /* Kenarları daralttık */
+    text-align: center;
+  }
+
+  .footer-container {
+    gap: 30px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: center; /* Her şeyi ortala */
+    gap: 40px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-brand p {
+    max-width: 100%; /* Metin mobilde yayılsın */
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center; /* Link gruplarını ortala */
+    gap: 35px;
+    width: 100%;
+  }
+
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-socials {
+    flex-direction: row; /* Mobilde sosyal ikonlar yan yana olsun (SaaS standardı) */
+    justify-content: center;
+    margin-top: 10px;
+    gap: 24px;
+  }
+
+  /* Back to Top Butonu Mobilde Biraz Daha Küçük Olsun */
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* --- ANIMATION & REVEAL RESPONSIVE --- */
+@media (max-width: 768px) {
+  /* Mobilde kaydırma yaparken animasyonların çok sert (80px) gelmesi
+     ekranın atlamasına neden olabilir. Mesafeyi biraz yumuşatıyoruz. */
+  .reveal-left {
+    transform: translateX(-30px);
+  }
+
+  .reveal-right {
+    transform: translateX(30px);
+  }
+
+  .reveal-up {
+    transform: translateY(30px);
+  }
+
+  /* Mobilde geçiş hızını biraz artırıyoruz ki telefon işlemcisini yormasın */
+  .reveal-left,
+  .reveal-right,
+  .reveal-up {
+    transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+/* --- 1. Hero Image İçin Yüzme Efekti --- */
+.hero-image img {
+  animation: floatProduct 6s ease-in-out infinite;
+}
+
+@keyframes floatProduct {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+/* --- 2. Metinlerdeki "Span"lar İçin Parlama --- */
+.hero-content h1 span,
+.section-head h2 span {
+  text-shadow: 0 0 20px rgba(124, 255, 196, 0.4);
+}
+
+/* --- 3. Kartlar İçin "Glassmorphism" ve Hover Geliştirme --- */
+.feature-card,
+.review-card,
+.pricing-card {
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* --- 4. Navbar Linkleri İçin Modern Alt Çizgi --- */
+.nav-menu a {
+  position: relative;
+}
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
+/* --- Smooth Scroll Altyapısı --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Back to Top Buton Stili --- */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  opacity: 0; /* Başta gizli */
+  visibility: hidden;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  box-shadow: 0 10px 20px rgba(124, 255, 196, 0.3);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  background: #fff;
+}
+
+/* --- Her Yere Animasyon Hazırlığı (Reveal) --- */
+/* Başlıklar, Yazılar, İstatistikler, Butonlar... Her Şeyi Kapsar */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gecikmeli Animasyonlar (Sırayla gelmesi için) */
+.delay-1 {
+  transition-delay: 0.2s;
+}
+.delay-2 {
+  transition-delay: 0.4s;
+}
+.delay-3 {
+  transition-delay: 0.6s;
+}
+
+/* --- YÖN BAZLI REVEAL SİSTEMİ --- */
+
+/* Ortak Başlangıç (Gizlilik) */
+.reveal-left,
+.reveal-right,
+.reveal-up {
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none; /* Gelmeden tıklanmasın */
+}
+
+/* Soldan gelecekler */
+.reveal-left {
+  transform: translateX(-80px);
+}
+
+/* Sağdan gelecekler */
+.reveal-right {
+  transform: translateX(80px);
+}
+
+/* Aşağıdan (merkezdekiler için) */
+.reveal-up {
+  transform: translateY(50px);
+}
+
+/* Aktif olduğunda (Hepsini sıfırla) */
+.active {
+  opacity: 1 !important;
+  transform: translate(0, 0) !important;
+  pointer-events: all !important;
+}
+
+/* --- SIRALAMA (STAGGER) GECİKMELERİ --- */
+/* Elemanların peş peşe gelmesi için */
+.d-1 {
+  transition-delay: 0.1s;
+}
+.d-2 {
+  transition-delay: 0.25s;
+}
+.d-3 {
+  transition-delay: 0.4s;
+}
+.d-4 {
+  transition-delay: 0.55s;
+}
+.d-5 {
+  transition-delay: 0.7s;
+}
+
+/* FAQ Cevap Alanı Başlangıçta Gizli */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+/* FAQ Aktif Olduğunda */
+.faq-item.active .faq-answer {
+  max-height: 200px; /* İçeriğe göre yeterli bir yükseklik */
+  opacity: 1;
+  padding-top: 10px;
+}
+
+/* Soru Başlığındaki + veya İkon Döndürme (Varsa) */
+.faq-item.active .faq-question::after {
+  transform: rotate(180deg);
+}
